@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StackNavigator } from './src/navigator/StackNavigator';
 import { MenuLateral } from './src/navigator/MenuLateral';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { AuthContextProvider } from './src/context/AuthContext';
 
 export default function App() {
 
@@ -13,11 +14,19 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      {/* <StackNavigator /> */}
       <SafeAreaProvider>
-        <MenuLateral />
+        <AppStateContext>
+          <MenuLateral />
+        </AppStateContext>
       </SafeAreaProvider>
     </NavigationContainer>
   );
 }
 
+const AppStateContext = ({ children }: {children:JSX.Element}) => {
+  return (
+    <AuthContextProvider>
+      { children }
+    </AuthContextProvider>
+  )
+}
